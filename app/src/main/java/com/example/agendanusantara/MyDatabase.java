@@ -103,4 +103,18 @@ public class MyDatabase extends SQLiteOpenHelper {
         cv.put("password", newPass);
         db.update("tabel_akun", cv, "username = ?", new String[]{"user"});
     }
+
+    public int getJumlahTugas(int statusSelesai) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int count = 0;
+
+        // Query untuk menghitung baris (COUNT)
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM tabel_tugas WHERE status_selesai = ?", new String[]{String.valueOf(statusSelesai)});
+
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
 }

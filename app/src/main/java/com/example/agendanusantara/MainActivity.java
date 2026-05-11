@@ -14,8 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView sapaan, tanggal;
+    TextView sapaan, tanggal, angkaSelesai, angkaBelumSelesai;
     CardView tombolPenting, tombolBiasa, tombolData, tombolPengaturan;
+    MyDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         String TanggalSekarang = getTanggal();
         tanggal.setText(TanggalSekarang);
         sapaan.setText("Selamat Datang, " + namaUser + "! 👋");
+
+        angkaSelesai = findViewById(R.id.angkaSelesai);
+        angkaBelumSelesai = findViewById(R.id.angkaBelumSelesai);
+        db = new MyDatabase(this);
 
         tombolPenting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,5 +79,18 @@ public class MainActivity extends AppCompatActivity {
     private String getTanggal(){
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("EEEE, d MMMM yyyy", new java.util.Locale("id", "ID"));
         return sdf.format(new java.util.Date());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // 1. Ambil jumlah dari database (0 = Belum, 1 = Selesai)
+        int jumlahBelum = db.getJumlahTugas(0);
+        int jumlahSelesai = db.getJumlahTugas(1);
+
+        // 2. Tembakkan angkanya ke TextView di layar
+        angkaBelumSelesai.setText(String.valueOf(jumlahBelum));
+        angkaSelesai.setText(String.valueOf(jumlahSelesai));
     }
 }
