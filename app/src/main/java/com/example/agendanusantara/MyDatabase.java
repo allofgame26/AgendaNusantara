@@ -82,4 +82,9 @@ public class MyDatabase extends SQLiteOpenHelper {
             Toast.makeText(context, "Tugas Berhasil Disimpan!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public Cursor readSemuaTugas(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM tabel_tugas",null);
+    }
 }
