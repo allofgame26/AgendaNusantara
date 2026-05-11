@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgendaNusantara">
         <activity
+            android:name=".PengaturanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DaftarTugasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TugasBiasaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TugasPentingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
