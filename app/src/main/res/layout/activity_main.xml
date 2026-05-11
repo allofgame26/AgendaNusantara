@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="#000"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,20 +13,21 @@
         android:paddingBottom="32dp">
 
         <TextView
-            android:id="@+id/tv_greeting"
+            android:id="@+id/textSapaan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="?attr/actionBarSize"
             android:text="Halo, User! 👋"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:paddingTop="64dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/textTanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -35,7 +36,7 @@
             android:textColor="#757575"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
+            app:layout_constraintTop_toBottomOf="@+id/textSapaan" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_selesai"
@@ -48,7 +49,7 @@
             app:cardElevation="2dp"
             app:layout_constraintEnd_toStartOf="@+id/card_belum"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date">
+            app:layout_constraintTop_toBottomOf="@+id/textTanggal">
 
             <LinearLayout
                 android:layout_width="match_parent"

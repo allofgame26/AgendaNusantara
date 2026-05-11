@@ -25,6 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
         inputUsername = findViewById(R.id.input_username);
         inputPassword = findViewById(R.id.input_password);
         login = findViewById(R.id.btn_login);
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("nama_user", user);
                     startActivity(intent);
 
                     finish();

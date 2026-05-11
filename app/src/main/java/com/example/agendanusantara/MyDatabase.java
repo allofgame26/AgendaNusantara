@@ -1,9 +1,11 @@
 package com.example.agendanusantara;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -60,6 +62,24 @@ public class MyDatabase extends SQLiteOpenHelper {
         } else {
             cursor.close();
             return false;
+        }
+    }
+
+    public void addTugas (String judul, String deskripsi, String tanggal, String kategori){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("judul", judul);
+        cv.put("deskripsi", deskripsi);
+        cv.put("tanggal", tanggal);
+        cv.put("kategori", kategori);
+        cv.put("status_selesai", 0);
+
+        long result = db.insert("tabel_tugas", null, cv);
+        if (result == -1) {
+            Toast.makeText(context, "Tugas Gagal Disimpan!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Tugas Berhasil Disimpan!", Toast.LENGTH_SHORT).show();
         }
     }
 }
