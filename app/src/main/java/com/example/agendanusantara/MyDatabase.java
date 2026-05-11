@@ -87,4 +87,20 @@ public class MyDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM tabel_tugas",null);
     }
+
+    public boolean cekPasswordLama(String oldPass) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tabel_akun WHERE username = 'user' AND password = ?", new String[]{oldPass});
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    // Menyimpan password baru
+    public void updatePassword(String newPass) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        android.content.ContentValues cv = new android.content.ContentValues();
+        cv.put("password", newPass);
+        db.update("tabel_akun", cv, "username = ?", new String[]{"user"});
+    }
 }
