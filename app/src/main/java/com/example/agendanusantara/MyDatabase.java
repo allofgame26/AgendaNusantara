@@ -117,6 +117,11 @@ public class MyDatabase extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
+    public android.database.Cursor getDataSelesaiPerTanggal() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Query untuk menghitung jumlah status_selesai = 1, dikelompokkan berdasarkan tanggal
+        return db.rawQuery("SELECT tanggal, COUNT(*) as total FROM tabel_tugas WHERE status_selesai = 1 GROUP BY tanggal ORDER BY tanggal ASC", null);
+    }
 
     public int getJumlahTugasHariIni(int statusSelesai, String tanggal) {
         SQLiteDatabase db = this.getReadableDatabase();
