@@ -117,4 +117,23 @@ public class MyDatabase extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
+
+    public int getJumlahTugasHariIni(int statusSelesai, String tanggal) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int count = 0;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM tabel_tugas WHERE status_selesai = ? AND tanggal = ?", new String[]{String.valueOf(statusSelesai), tanggal});
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+    public void tandaiSelesai(String id_tugas) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        android.content.ContentValues cv = new android.content.ContentValues();
+        cv.put("status_selesai", 1);
+
+        // Update baris yang ID-nya cocok
+        db.update("tabel_tugas", cv, "id_tugas = ?", new String[]{id_tugas});
+    }
 }

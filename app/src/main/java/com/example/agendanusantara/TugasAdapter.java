@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,22 @@ public class TugasAdapter extends RecyclerView.Adapter<TugasAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvJudul.setText(String.valueOf(judul.get(position)));
         holder.tvInfo.setText(String.valueOf(tanggal.get(position)) + " - " + String.valueOf(kategori.get(position)));
+        holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 1. Panggil database dan jalankan fungsi tandaiSelesai
+                MyDatabase myDB = new MyDatabase(context);
+                myDB.tandaiSelesai(String.valueOf(id_tugas.get(position)));
+
+                // 2. Munculkan pesan berhasil
+                android.widget.Toast.makeText(context, "Tugas ditandai selesai!", android.widget.Toast.LENGTH_SHORT).show();
+
+                // 3. (Opsional tapi keren) Refresh halaman secara otomatis agar data terbaru terlihat
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).recreate();
+                }
+            }
+        });
 
         // Logika warna Ikon (Penting = Merah, Biasa = Hijau)
         if (String.valueOf(kategori.get(position)).equalsIgnoreCase("Penting")) {
@@ -54,12 +71,14 @@ public class TugasAdapter extends RecyclerView.Adapter<TugasAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvJudul, tvInfo;
         ImageView imgArrow;
+        Button btnSelesai;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvJudul = itemView.findViewById(R.id.tv_judul_tugas);
             tvInfo = itemView.findViewById(R.id.tv_info_tugas);
             imgArrow = itemView.findViewById(R.id.img_arrow);
+            btnSelesai = itemView.findViewById(R.id.btn_selesai);
         }
     }
 }
